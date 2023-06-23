@@ -9,6 +9,7 @@ class ArticlePolicy < ApplicationPolicy
   def index?
     true
   end
+
   def show?
     true
   end
@@ -22,15 +23,15 @@ class ArticlePolicy < ApplicationPolicy
   end
 
   def update?
-    user.admin? || !article.published
+    (user.has_role? :admin) || !article.published
   end
 
   def create?
-    user.admin?
+    user.has_role? :admin
   end
 
   def destroy?
-    user.admin?
+    user.has_role? :admin
   end
   # NOTE: Be explicit about which records you allow access to!
   # def resolve
